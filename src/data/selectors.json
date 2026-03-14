@@ -1,0 +1,21 @@
+{
+  "naukri": {
+    "roleInput": "//input[@class='suggestor-input ' and contains(@placeholder,'Enter skills ')]",
+    "expyearsdropdown": "#expereinceDD",
+    "expdroption": "//ul[@class='dropdown ']/li/div/span[text()='{{YEAR}}']",
+    "location": "//input[@class='suggestor-input ' and contains(@placeholder,'Enter location')]",
+    "searchButton": "//div[@class='qsbSubmit']",
+    "allResults": "//div[@class='cust-job-tuple layout-wrapper lay-2 sjw__tuple ']/div/h2/a",
+    "allSkills": "//ul[@class='tags-gt ']",
+    "allCompanies": "//div[@class='cust-job-tuple layout-wrapper lay-2 sjw__tuple ']//div[@class=' row2']/span/a"
+  },
+  "foundit": {
+    "roleInput": "#heroSectionDesktop-skillsAutoComplete--input",
+    "location": "#heroSectionDesktop-locationAutoComplete--input",
+    "experianceDropdown": "#heroSectionDesktop-expAutoComplete",
+    "expdroption": "//div[@id='searchDropDown']/ul/li/span[contains(text(),'{{YEAR}}')]",
+    "searchButton": "//form[@id='searchForm']//button[@type='submit']//span[text()='Search']",
+    "allRole": "//div[@class='jobCardWrapper flex w-full flex-col gap-1']//h2"
+  }
+}
+

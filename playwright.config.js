@@ -1,22 +1,24 @@
 // @ts-check
-const { devices } = require("@playwright/test");
+import { defineConfig, devices } from "@playwright/test";
 
-const config = {
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ */
+export default defineConfig({
   testDir: "./tests",
-  retries: 2,
-  /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  /* Increased timeout to 120s to allow Gemini and PDF generation to finish without crashing */
+  timeout: 120 * 1000,
+  retries: 0,
   expect: {
     timeout: 5000,
   },
   reporter: "html",
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  /* Shared settings for all the projects below. */
   use: {
     browserName: "chromium",
-    headless: true,
+    channel: "msedge", 
+    headless: false, // Set to false so you can see the scraping happen
     screenshot: "on",
-    trace: "retain-on-failure", //off,on
+    trace: "retain-on-failure",
   },
-};
-
-module.exports = config;
+});

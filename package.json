@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "Regression": "npx playwright test",
     "WebTests": "npx playwright test --grep @web",
-    "APITests" : "npx playwright test --grep @API",
-    "SafariNewConfig": "npx playwright test --config playwright.config1.js --project=safari"
+    "APITests": "npx playwright test --grep @API"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/keshavjha06/PlaywrightFramework#readme",
   "devDependencies": {
-    "@playwright/test": "^1.28.1",
-    "allure-playwright": "^2.0.0-beta.20"
-  }
+    "@playwright/test": "^1.57.0"
+  },
+  "dependencies": {}
 }

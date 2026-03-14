@@ -1,31 +1,101 @@
-# PlaywrightFramework
+# Playwright Framework
 
-## Introduction
+A reusable Playwright test automation framework with Page Object Model (POM), custom fixtures, and UI + API test support.
 
-Playwright is a framework for Web Testing and Automation. It allows testing Chromium, Firefox and WebKit with a single API. Playwright is built to enable cross-browser web automation that is ever-green, capable, reliable and fast.
+## Prerequisites
 
-This Test Automation Framework is created using JavaScript + Playwright + Page Object Model(POM).
-Which can be used across different web based applications.It is used to make the code more readable, maintainable and reusable.
+- **Node.js** 18+  
+- **npm** (or yarn/pnpm)
 
-## Technologies/Tools used in building the framework
+## Basic setup
 
-- VS Code - IDE
-- Playwright - framework for Web Testing and Automation
-- JavaScript - Programming language
-- Allure Reports - Reporting framework
-- GitHub - Version control
-- Jenkins - CI/CD
+### 1. Clone and install dependencies
 
-## Steps to clone execute the tests
+```bash
+git clone <your-repo-url>
+cd PlaywrightFramework
+npm install
+```
 
-`git clone https://github.com/keshavjha06/PlaywrightFramework.git`<br/>
-`cd PlaywrightFramework`<br/>
-`npx playwright test`<br/>
+### 2. Install Playwright browsers
 
-## Screenshot:
+```bash
+npx playwright install
+```
 
-- Take Screenshots On test failures Method will automatically capture & store the screenshots under /playwright-report directory.
+Optional: install system dependencies (e.g. on Linux):
 
-## Reporting:
+```bash
+npx playwright install-deps
+```
 
-- The framework produce index.html report. It resides in the playwright-report folder.This reports gives the detailed information like screenshots,traces. On clicking these will display detailed descriptions of execution.
+### 3. Run tests
+
+| Command        | Description                    |
+|----------------|--------------------------------|
+| `npm run Regression` | Run all tests                  |
+| `npm run WebTests`    | Run tests tagged `@web`        |
+| `npm run APITests`    | Run tests tagged `@API`        |
+
+Examples:
+
+```bash
+npm run Regression
+npm run WebTests
+npm run APITests
+```
+
+### 4. View test report (after a run)
+
+```bash
+npx playwright show-report
+```
+
+## Project structure
+
+```
+PlaywrightFramework/
+├── playwright.config.js    # Playwright configuration
+├── package.json
+├── src/
+│   ├── config/             # Config helpers (env, testConfig)
+│   ├── pages/              # Page Object Model (BasePage, demo pages)
+│   ├── fixtures/           # Custom test fixtures
+│   ├── data/               # Selectors, test data (optional)
+│   ├── api/                # API clients and API test specs
+│   └── utils/              # Shared utilities
+└── tests/
+    ├── ui/                 # UI test specs
+    └── api/                # API test entry points
+```
+
+## Adding your first test
+
+1. **Page object** – Add a new file under `src/pages/`, e.g. `src/pages/login.page.ts`, extending `BasePage`.
+2. **Fixture (optional)** – Register the page in `src/fixtures/test-fixtures.ts` if you want it injected into tests.
+3. **Spec** – Add a spec under `tests/ui/` or `tests/api/`, and import `test`/`expect` from `src/fixtures/test-fixtures` for UI tests.
+
+Example UI spec:
+
+```ts
+import { test, expect } from "../../src/fixtures/test-fixtures";
+
+test.describe("@web my feature", () => {
+  test("does something", async ({ demoPage }) => {
+    await demoPage.gotoPlaywrightHomepage();
+    await expect(demoPage.header).toContainText("Playwright");
+  });
+});
+```
+
+## Configuration
+
+- **Config file:** `playwright.config.js` – timeout, browser, `testDir`, reporters.
+- **Headless:** Change `use.headless` in `playwright.config.js` (e.g. `true` for CI).
+- **Base URL:** Set `use.baseURL` in config to avoid repeating full URLs in tests.
+
+## Troubleshooting
+
+- **Browsers not found:** Run `npx playwright install`.
+- **Tests not discovered:** Ensure specs are under `tests/` and match the config `testDir`.
+- **Module not found:** Use correct relative paths; UI specs in `tests/ui/` import from `../../src/...`.
