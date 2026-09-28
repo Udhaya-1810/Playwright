@@ -1,16 +1,20 @@
 import type { Page, Locator } from "@playwright/test";
-import { BasePage } from "./base.page";
 
-export class DemoPage extends BasePage {
-  readonly header: Locator;
+export class DemoPage {
 
-  constructor(page: Page) {
-    super(page);
-    this.header = page.locator("h1");
-  }
+    readonly page: Page;
+    readonly header: Locator;
 
-  async gotoPlaywrightHomepage() {
-    await this.goto("https://playwright.dev/");
-  }
+    constructor(page: Page) {
+        this.page = page;
+        this.header = page.locator("h1");
+    }
+
+    async gotoPlaywrightHomepage() {
+        await this.page.goto("https://playwright.dev/");
+    }
+
+    async login(username: string, password: string) {
+        
+    }
 }
-

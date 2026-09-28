@@ -1,9 +1,7 @@
 // @ts-check
 import { defineConfig, devices } from "@playwright/test";
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
+
 export default defineConfig({
   testDir: "./tests",
   /* Increased timeout to 120s to allow Gemini and PDF generation to finish without crashing */
@@ -17,7 +15,7 @@ export default defineConfig({
   use: {
     browserName: "chromium",
     channel: "msedge", 
-    headless: false, // Set to false so you can see the scraping happen
+    headless: true, // Set to false so you can see the scraping happen
     screenshot: "on",
     trace: "retain-on-failure",
   },
