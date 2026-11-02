@@ -4,7 +4,7 @@ import config from '../testdata/config.json' with { type: 'json' };
 test.describe('API Test', () => {
   const baseurl='https://reqres.in/'
 test.only("api get operation ",async({request})=>{
-  const response=await request.get(`${config.api}/api/users/2`)
+  const response=await request.get(`${config.api.baseUrl}/api/users/2`)
   console.log(await response.json())
   expect(response.status()).toBe(200)
   const body=await response.json()
