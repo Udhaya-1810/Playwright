@@ -1,3 +1,4 @@
+
 // @ts-check
 import { defineConfig, devices } from "@playwright/test";
 import { defineBddConfig } from "playwright-bdd";
@@ -13,8 +14,9 @@ export default defineConfig({
   expect: { timeout: 5000 },
   reporter: "html",
 
-  fullyParallel: true, 
-  workers: 4,        
+  fullyParallel: true,
+  workers: 4,
+
   use: {
     headless: false,
     screenshot: "off",
@@ -23,33 +25,50 @@ export default defineConfig({
   },
 
   projects: [
- 
     {
       name: "bdd-edge",
       testDir: bddTestDir,
-      use: { ...devices["Desktop Edge"], channel: "msedge" },
+      use: {
+        ...devices["Desktop Edge"],
+        browserName: "chromium",
+        channel: "msedge",
+      },
     },
     {
       name: "bdd-chrome",
       testDir: bddTestDir,
-      use: { ...devices["Desktop Chrome"], channel: "chrome" },
+      use: {
+        ...devices["Desktop Chrome"],
+        browserName: "chromium",
+        channel: "chrome",
+      },
     },
     {
       name: "bdd-firefox",
       testDir: bddTestDir,
-      use: { ...devices["Desktop Firefox"] },
+      use: {
+        ...devices["Desktop Firefox"],
+        browserName: "firefox",
+      },
     },
     {
       name: "bdd-webkit",
       testDir: bddTestDir,
-      use: { ...devices["Desktop Safari"] },
+      use: {
+        ...devices["Desktop Safari"],
+        browserName: "webkit",
+      },
     },
 
     // Existing tests, kept on Edge only
     {
       name: "legacy",
       testDir: "./tests",
-      use: { ...devices["Desktop Edge"], channel: "msedge" },
+      use: {
+        ...devices["Desktop Edge"],
+        browserName: "chromium",
+        channel: "msedge",
+      },
     },
   ],
 });
