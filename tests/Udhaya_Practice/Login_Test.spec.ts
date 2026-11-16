@@ -1,68 +1,65 @@
 import {test,expect} from '@playwright/test'
 import { Page } from '@playwright/test' 
-import { Signup } from '../../src/pages/udhaya_signup.page';
-import { Login_Signup } from '../../src/pages/udhaya_login.page';
+import { CreateAccount } from '../../src/pages/udhaya_createAccount.page';
+import { Login_Signup } from '../../src/pages/udhaya_login&signup.page';
 import udhaya_config from '../testdata/udhaya_config.json' with { type: 'json' };
+import { Profile_HomePage } from '../../src/pages/udhaya_profile_home.page';
+import { Guest_Profile } from '../../src/pages/udhaya_guest_home.page';
+
+let log_sign : Login_Signup;
 
 test.describe('Login_Automation_Check_Flow',() => {
 
-    
-    test('Register a new user', async ({ page }) => {
-    
-        const signup = new Signup(page);
-        const logged_in = new Login_Signup(page)
-    
-        const data = {
-            pass: 'Test@123',
-            days: '10',
-            months: '5',
-            years: '1997',
-            first_name: 'Udhaya',
-            last_name: 'Kumar',
-            company: 'ABC Technologies',
-            address: 'Thiruvanmiyur',
-            address_2: 'Chennai',
-            state: 'Tamil Nadu',
-            city: 'Chennai',
-            zipcode: '600041',
-            mobile: '9876543210'
-        }
-        const user_name:string = "Udhaya_Test"
+    test.beforeEach('Login steps to signin and login',async({page})=>{
+
+        const guest_user = new Guest_Profile(page)
         
-        await page.goto("https://automationexercise.com/")
-        await page.getByRole('link', { name: ' Signup / Login' }).click()
-        await logged_in.sign_up(user_name,`udhaya.test123.${Date.now()}@example.com`)
-        await signup.sign_up_newuser(data);
-        await expect(page.getByText('Account Created! Congratulations! Your new account has been successfully')).toBeVisible();
-        await page.getByRole('link', { name: 'Continue' }).click();
-        await expect(page.locator('b')).toContainText(user_name)
-        await page.getByRole('link', { name: ' Delete Account' }).click();
-        await expect(page.getByText('Account Deleted! Your account')).toBeVisible();
-        await page.getByRole('link', { name: 'Continue' }).click();
+        log_sign = new Login_Signup(page)
+
+        await page.goto(udhaya_config.WebSite.URL)
+        await guest_user.signin_login.click()
+
+    })
+    
+    test('AE-001 = Register a new user', async ({ page }) => {
+    
+        const acc_add = new CreateAccount(page);
+        //const log_sign = new Login_Signup(page)
+        const profile_home = new Profile_HomePage(page)
+
+        await log_sign.sign_up(udhaya_config.new_user.sign_up.user_name,udhaya_config.new_user.sign_up.email)
+        await acc_add.sign_up_newuser(udhaya_config.new_user.data);
+        await expect(acc_add.accountCreated_text).toBeVisible();
+        await acc_add.continue_CTA.click();
+        await expect(profile_home.loggedin_as).toContainText(udhaya_config.new_user.sign_up.user_name)
+        await profile_home.deleteAccount.click();
+        await expect(profile_home.accountDeleted_text).toBeVisible();
+        await profile_home.continue_CTA.click();
     });
 
-    test('Successfull Login', async({ page })=>{
-        await page.goto("https://automationexercise.com/")
-        await page.getByRole('link', { name: ' Signup / Login' }).click()
-        const logged_in = new Login_Signup(page)
-        await logged_in.log_in(udhaya_config.login_data.username,udhaya_config.login_data.password)
-        await expect(page.locator('b')).toContainText('test')
+    test('AE-002 = Successfull Login', async({ page })=>{
+
+        //const log_sign = new Login_Signup(page)
+        const profile_home = new Profile_HomePage(page)
+
+        await log_sign.log_in(udhaya_config.login_data.username,udhaya_config.login_data.password)
+        await expect(profile_home.loggedin_as).toContainText('test')
     })
 
-    test.only('Login check with invalid data', async({ page})=>{
-        await page.goto("https://automationexercise.com/")
-        await page.getByRole('link', { name: ' Signup / Login' }).click()
-        const logged_in = new Login_Signup(page)
-        await logged_in.log_in(udhaya_config.failure_login_data.username,udhaya_config.failure_login_data.password)
-        await expect(page.getByText('Your email or password is')).toBeVisible();
+    test('AE-003 = Login check with invalid data', async({ page})=>{
+
+        //const log_sign = new Login_Signup(page)
+
+        await log_sign.log_in(udhaya_config.failure_login_data.username,udhaya_config.failure_login_data.password)
+        await expect(log_sign.login_error).toBeVisible();
     })
 
-    test('Signup with existing account', async({ page })=> {
-        await page.goto("https://automationexercise.com/")
-        await page.getByRole('link', { name: ' Signup / Login' }).click()
-        const logged_in = new Login_Signup(page)
-        await logged_in.sign_up(udhaya_config.login_data.username,udhaya_config.login_data.password)
-        await expect(page.getByText('Email Address already exist!')).toBeVisible();
+    test('AE-004 = Signup with existing account', async({ page })=> {
+        
+        //const log_sign = new Login_Signup(page)
+
+        await log_sign.sign_up(udhaya_config.login_data.username,udhaya_config.login_data.password)
+        await expect(log_sign.signup_error).toBeVisible();
     })
    
 })

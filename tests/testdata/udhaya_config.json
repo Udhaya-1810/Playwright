@@ -1,10 +1,39 @@
-{
+{   
+     "WebSite" : {
+     "URL" : "https://automationexercise.com/"
+     },
+
+    "new_user":{
+
+     "data" : {
+          "pass": "Test@123",
+          "days": "10",
+          "months": "5",
+          "years": "1997",
+          "first_name": "Udhaya",
+          "last_name": "Kumar",
+          "company": "ABC Technologies",
+          "address": "Thiruvanmiyur",
+          "address_2": "Chennai",
+          "state": "Tamil Nadu",
+          "city": "Chennai",
+          "zipcode": "600041",
+          "mobile": "9876543210"
+      },
+
+      "sign_up": {
+      "user_name": "Udhaya_Test",
+      "email": "udhaya.test1230987@example.com"
+      }
+     },
+
     "login_data":{
-      "username":"test12345@123gmail.com",
-      "password":"test@123"
+        "username":"test12345@123gmail.com",
+        "password":"test@123"
    },
+
    "failure_login_data":{
-    "username":"test@123.com",
-    "password":"test@123098"
+        "username":"test@123.com",
+        "password":"test@123098"
    }
 }
