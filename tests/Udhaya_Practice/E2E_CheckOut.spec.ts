@@ -8,12 +8,18 @@ import { Guest_Profile } from '../../src/pages/udhaya_guest_home.page';
 import { Profile_HomePage } from '../../src/pages/udhaya_profile_home.page';
 import { ProductListingPage } from '../../src/pages/udhaya_PLP.page';
 
+let profile_home : Profile_HomePage
+let plp : ProductListingPage
+
 test.describe('E2E_Automation_Checkout_Flow',() => {
 
     test.beforeEach('Login to the user profile',async({page})=>{
 
         const guest_user = new Guest_Profile(page)
         const log_sign = new Login_Signup(page)
+        
+        profile_home = new Profile_HomePage(page)
+        plp = new ProductListingPage(page)
 
         await page.goto(udhaya_config.WebSite.URL)
         await guest_user.signin_login.click()
@@ -24,10 +30,9 @@ test.describe('E2E_Automation_Checkout_Flow',() => {
 
     test('AE-005 = PDP_Check', async({page})=>{
 
-        const profile_home = new Profile_HomePage(page)
-        const plp = new ProductListingPage(page)
         const pdp = new ProductDetailsPage(page)
-    
+        
+        await page.pause()
         await profile_home.products.click();
         await expect(plp.allProd_text).toBeVisible();
         await plp.prod_A_view.click();
@@ -56,12 +61,10 @@ test.describe('E2E_Automation_Checkout_Flow',() => {
         })
     })
 
-    test('AE-006 = Search Product',async({page})=>{
-
-        const profile_home = new Profile_HomePage(page)
-        const plp = new ProductListingPage(page)
+    test.only('AE-006 = Search Product',async({ page })=>{
         
-        await profile_home.products.click()
+        await page.pause()
+        await profile_home.products.click();
         await plp.prod_search.fill('dress')
         await plp.submit_search.click()
         expect(plp.search_header).toBeVisible(); 
