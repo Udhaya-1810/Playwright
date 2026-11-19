@@ -1,6 +1,7 @@
 import{Page,Locator} from '@playwright/test'
 
 export class ProductListingPage{
+
     readonly page: Page;
 
     readonly allProd_text:Locator;
@@ -11,6 +12,8 @@ export class ProductListingPage{
     readonly product_B:Locator;
     readonly search_header:Locator;
     readonly searchProductsInfo:Locator;
+    readonly continueShopping:Locator;
+    readonly cartPage: Locator;
 
     constructor(page: Page) {
 
@@ -24,13 +27,25 @@ export class ProductListingPage{
         this.submit_search = page.locator('#submit_search')
         this.search_header = page.locator("//h2[text()='Searched Products']")
         this.searchProductsInfo = page.locator('.productinfo.text-center');
+        this.continueShopping = page.locator("//button[text()='Continue Shopping']")
+        this.cartPage = page.locator("//a[text()=' Cart']")
 
     }
 
-    async add_to_cart()
+    async view_product()
     {
+        await this.prod_A_view.click();
     }
 
+    async add_to_cart(product_add_to_cart:Locator)
+    {
+        await product_add_to_cart.click()
+        await this.continueShopping.click()
+    }
 
-
+    async moving_to_cart_page()
+    {
+        await this.cartPage.click()
+    }
+   
 }

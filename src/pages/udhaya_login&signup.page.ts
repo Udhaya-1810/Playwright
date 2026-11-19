@@ -14,6 +14,7 @@ export class Login_Signup{
 
     constructor(page: Page) {
         this.page = page;
+        
         this.new_user = page.getByPlaceholder('Name'),
         this.new_email = page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address'),
         this.signup = page.getByRole('button', { name: 'Signup' }),

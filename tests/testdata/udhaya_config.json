@@ -35,5 +35,19 @@
    "failure_login_data":{
         "username":"test@123.com",
         "password":"test@123098"
+   },
+   "pay_data":{
+     "name":"udhaya",
+     "cardNumber":"1234 5678 9012 3456",
+     "cvvNumber":"123",
+     "expiryMonth":"12",
+     "expiryYear":"2030"
+   },
+   "Contactus_data":{
+     "name":"udhaya",
+     "email":"udhaya.test1230987@example.com",
+     "subject":"Order Placement Request",
+     "description":"Attached product details must be placed an order",
+     "selectFile":"C:/Users/sunra/Downloads/invoice.txt"
    }
 }
