@@ -29,14 +29,15 @@ export class Cart_Page {
     }
 
 
-    async list_of_products_check(product_check:Locator,price:Locator)
+    async list_of_products_check()
     {
         //ensure the list of the added products available at cart page
 
-        await expect(product_check).toBeVisible()
-        await expect(price).toBeVisible()
+        await expect(this.prod_A_headerCart).toBeVisible()
+        await expect(this.prod_A_priceCart).toBeVisible()
+        await expect(this.prod_B_headerCart).toBeVisible()
+        await expect(this.prod_B_priceCart).toBeVisible()
 
-        // product availability check handled in spec file [try catch block]
     }
 
     async moving_to_checkout_page()
@@ -44,15 +45,15 @@ export class Cart_Page {
         await this.proceedCheckout.click()
     }
 
-    async remove_products(remove_product_fromCart:Locator)
+    async remove_products()
     {
         // remove the products from the cart by passing values as a parameter
-        await remove_product_fromCart.click()
+        await this.removeProduct_A.click()
     }
     async clear_cart()
     {
-        await this.remove_products(this.removeProduct_A)
-        await this.remove_products(this.removeProduct_B)
+        await this.removeProduct_A.click()
+        await this.removeProduct_B.click()
     }
     async validate_CartEmpty()
     {

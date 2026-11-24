@@ -1,4 +1,5 @@
 import { Page, expect, Locator } from '@playwright/test';
+import udhaya_config from '../../tests/testdata/udhaya_config.json' with {type:'json'};
 
 export class Contact_Us_Page {
 
@@ -27,19 +28,20 @@ export class Contact_Us_Page {
 
     }
 
-    async fillDetails(Contact_us_data:{
+    /*async fillDetails(Contact_us_data:{
         name:string,
         email:string,
         subject:string,
         description:string,
         selectFile:string
-    })
+    })*/
+   async fillDetails()
     {
-        await this.name.fill(Contact_us_data.name)
-        await this.email.fill(Contact_us_data.email)
-        await this.subject.fill(Contact_us_data.subject)
-        await this.description.fill(Contact_us_data.description)
-        await this.selectFile.setInputFiles(Contact_us_data.selectFile)
+        await this.name.fill(udhaya_config.Contactus_data.name)
+        await this.email.fill(udhaya_config.Contactus_data.email)
+        await this.subject.fill(udhaya_config.Contactus_data.subject)
+        await this.description.fill(udhaya_config.Contactus_data.description)
+        await this.selectFile.setInputFiles(udhaya_config.Contactus_data.selectFile)
         
     }
     async submit_form()

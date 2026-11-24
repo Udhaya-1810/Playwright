@@ -44,8 +44,8 @@ test.describe('E2E_Automation_Checkout_Flow',() => {
 
     test('AE-005 = PDP_Check', async({page})=>{
         
-        await profile_home.products.click();
-        await expect(plp.allProd_text).toBeVisible();
+        await profile_home.navigation_products_Page();
+        await plp.All_Prod_TitleValidation()
         await plp.view_product()
         await pdp.adClose()
         await pdp.PDP_details_check()
@@ -54,10 +54,9 @@ test.describe('E2E_Automation_Checkout_Flow',() => {
     
     test('AE-006 = Search Product',async({ page })=>{
         
-        await profile_home.products.click();
-        await plp.prod_search.fill('dress')
-        await plp.submit_search.click()
-        expect(plp.search_header).toBeVisible(); 
+        await profile_home.navigation_products_Page();
+        await plp.searchProducts('dress')
+        await plp.searchPage_TitleValidation()
     
         const products: string[] = await plp.searchProductsInfo.allTextContents();
 
@@ -70,13 +69,11 @@ test.describe('E2E_Automation_Checkout_Flow',() => {
 
     test('AE-007 = Cart Value calculations',async({page})=>{
 
-        await profile_home.products.click();
-        await plp.add_to_cart(plp.product_A)
-        await plp.add_to_cart(plp.product_B)
+        await profile_home.navigation_products_Page();
+        await plp.add_to_cart()
         await plp.moving_to_cart_page()
         try {
-            await cart.list_of_products_check(cart.prod_A_headerCart,cart.prod_A_priceCart)
-            await cart.list_of_products_check(cart.prod_B_headerCart,cart.prod_B_priceCart)
+            await cart.list_of_products_check()
             console.log("Products are available")
             }
         catch(error){
@@ -92,40 +89,40 @@ test.describe('E2E_Automation_Checkout_Flow',() => {
     })
     test('AE-008 = Update qty and remove item from cart',async({page})=>{
 
-        await profile_home.products.click();
+        await profile_home.navigation_products_Page();
         await plp.view_product()
         await pdp.adClose()
         await pdp.update_qty("4")
         await pdp.add_to_cart()
         await plp.moving_to_cart_page()
         await cart.validateProd_qty("4")
-        await cart.remove_products(cart.removeProduct_A)
+        await cart.remove_products()
         await cart.validate_CartEmpty()
     })
 
     test('AE-009 = Checkout & Payment [Success Order]',async({page})=>{
 
-        await profile_home.products.click();
-        await plp.add_to_cart(plp.product_A)
-        await plp.add_to_cart(plp.product_B)
+        await profile_home.navigation_products_Page();
+        await plp.add_to_cart()
         await plp.moving_to_cart_page()
         await cart.moving_to_checkout_page()
         await checkout.verifyAddressmatch()
         await checkout.calculation_check()
         await checkout.checkOut_Text("Placing Success Order - 2 products")
         await checkout.place_Order()
-        await payment.fillCard_Details(udhaya_config.pay_data)
+        await payment.fillCard_Details()
         await payment.confirm_Payment()
         await payment.verify_successOrder_text()
 
     })
-    test.only('AE-010 = Contactus & Subscription',async({page})=>{
+    
+    test('AE-010 = Contactus & Subscription',async({page})=>{
 
         await profile_home.navigation_contactUs_Page()
-        await contact_us.fillDetails(udhaya_config.Contactus_data)
+        await contact_us.fillDetails()
         await contact_us.submit_form()
         await contact_us.navigation_homePage()
-        await profile_home.email_Subscription(udhaya_config.Contactus_data.email)
+        await profile_home.email_Subscription()
 
     })
 

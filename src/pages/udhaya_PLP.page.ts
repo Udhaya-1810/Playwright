@@ -1,4 +1,4 @@
-import{Page,Locator} from '@playwright/test'
+import{Page,Locator, expect} from '@playwright/test'
 
 export class ProductListingPage{
 
@@ -37,9 +37,11 @@ export class ProductListingPage{
         await this.prod_A_view.click();
     }
 
-    async add_to_cart(product_add_to_cart:Locator)
+    async add_to_cart()
     {
-        await product_add_to_cart.click()
+        await this.product_A.click()
+        await this.continueShopping.click()
+        await this.product_B.click()
         await this.continueShopping.click()
     }
 
@@ -47,5 +49,17 @@ export class ProductListingPage{
     {
         await this.cartPage.click()
     }
-   
+    async All_Prod_TitleValidation()
+    {
+        expect(this.allProd_text).toBeVisible();
+    }
+    async searchPage_TitleValidation()
+    {
+        expect(this.search_header).toBeVisible(); 
+    }
+   async searchProducts(search_text:string)
+   {
+    await this.prod_search.fill(search_text)
+    await this.submit_search.click()
+   }
 }

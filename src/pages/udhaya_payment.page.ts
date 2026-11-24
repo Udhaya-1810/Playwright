@@ -1,4 +1,5 @@
 import { Page, expect, Locator } from '@playwright/test';
+import udhaya_config from '../../tests/testdata/udhaya_config.json' with {type:'json'};
 
 export class Payment_Page {
 
@@ -24,19 +25,20 @@ export class Payment_Page {
         this.successOrder_text = page.getByText('Congratulations! Your order')
     }
 
-    async fillCard_Details(payment_data:{
+   /* async fillCard_Details(payment_data:{
         name:string,
-        cardNumber:string,
+        cardNumber:,
         cvvNumber:string,
         expiryMonth:string,
         expiryYear:string
-    })
-    { 
-        await this.name.fill(payment_data.name)
-        await this.cardNumber.fill(payment_data.cardNumber)
-        await this.cvvNumber.fill(payment_data.cvvNumber)
-        await this.expiryMonth.fill(payment_data.expiryYear)
-        await this.expiryYear.fill(payment_data.expiryYear)
+})*/
+   async fillCard_Details() { 
+
+        await this.name.fill(udhaya_config.pay_data.name)
+        await this.cardNumber.fill(udhaya_config.pay_data.cardNumber)
+        await this.cvvNumber.fill(udhaya_config.pay_data.cvvNumber)
+        await this.expiryMonth.fill(udhaya_config.pay_data.expiryYear)
+        await this.expiryYear.fill(udhaya_config.pay_data.expiryYear)
 
     }
     async confirm_Payment()

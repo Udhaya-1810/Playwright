@@ -1,5 +1,6 @@
 import {test,expect, Locator} from '@playwright/test'
 import { Page } from '@playwright/test' 
+import  udhaya_config from '../../tests/testdata/udhaya_config.json' with {type:'json'};
 
 export class Profile_HomePage{
 
@@ -34,10 +35,14 @@ export class Profile_HomePage{
         await this.contactUs.click()
     }
 
-    async email_Subscription(email:string)
+    async email_Subscription()
     {
-        await this.subscription.fill(email)
+        await this.subscription.fill(udhaya_config.email_Subscription.email)
         await this.subscribe.click()
         expect(this.substext).toBeVisible()
+    }
+    async navigation_products_Page()
+    {
+        await this.products.click()
     }
 }

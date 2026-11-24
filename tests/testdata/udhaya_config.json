@@ -49,5 +49,9 @@
      "subject":"Order Placement Request",
      "description":"Attached product details must be placed an order",
      "selectFile":"C:/Users/sunra/Downloads/invoice.txt"
+   },
+   "email_Subscription":{
+     "email":"udhaya.test1230987@example.com"
    }
+
 }
